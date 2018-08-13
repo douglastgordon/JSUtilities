@@ -6,3 +6,6 @@ const identity = value => value
 
 // returns function that returns identity
 const constant = value => identity(value)
+
+// apply function partially
+const partial = (fn, ...args) => (...laterArgs) => fn(...args, ...laterArgs)
