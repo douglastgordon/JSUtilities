@@ -20,3 +20,7 @@ const complement = fn => (...args) => !fn(...args)
 const compose = (...fns) => val => {
   return fns.reduceRight((acc, currentFn) => currentFn(acc), val)
 }
+
+const lazyCompose = (...fns) => fns.reduce((fn1, fn2) => {
+  return (...args) => fn1(fn2(...args))
+})
