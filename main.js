@@ -34,6 +34,15 @@ const memoize = fn => {
   return arg => cache[arg] !== undefined ? cache[arg] : fn(arg)
 }
 
-const deepCopyArray = arr => {
-  return arr.map(el => Array.isArray(el) ? deepCopyArray(el) : el)
+const deepCopy = obj => {
+  const isObject = typeof obj === "object"
+  const isArray = Array.isArray(obj)
+  if (isArray) {
+    return obj.map(deepCopy)
+  } else if (isObject) {
+    return Object.keys(obj).reduce((acc, key) => {
+      return Object.assign({}, acc, {[key]: deepCopy(obj[key])})
+    }, {})
+  }
+  return obj
 }
