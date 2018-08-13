@@ -14,3 +14,5 @@ const curry = (fn, arity=fn.length) => (nextCurried = prevArgs => nextArg => {
   const args = [...prevArgs, nextArg]
   return args.length >= arity ? fn(...args) : nextCurried(args)
 })([])
+
+const complement = fn => (...args) => !fn(...args)
