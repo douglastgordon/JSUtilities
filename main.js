@@ -1,5 +1,8 @@
 // ensures only one argument is passed to fn
 const unary = fn => arg => fn(arg)
 
-// returns arg
-const identity = el => el
+// returns passed value
+const identity = value => value
+
+// returns function that returns identity
+const constant = value => identity(value)
