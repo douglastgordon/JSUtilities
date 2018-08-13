@@ -16,3 +16,7 @@ const curry = (fn, arity=fn.length) => (nextCurried = prevArgs => nextArg => {
 })([])
 
 const complement = fn => (...args) => !fn(...args)
+
+const compose = (...fns) => val => {
+  return fns.reduceRight((acc, currentFn) => currentFn(acc), val)
+}
