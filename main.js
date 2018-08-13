@@ -1,3 +1,5 @@
+"use strict";
+
 // ensures only one argument is passed to fn
 const unary = fn => arg => fn(arg)
 
@@ -20,6 +22,7 @@ const complement = fn => (...args) => !fn(...args)
 const compose = (...fns) => val => {
   return fns.reduceRight((acc, currentFn) => currentFn(acc), val)
 }
+
 
 const lazyCompose = (...fns) => fns.reduce((fn1, fn2) => {
   return (...args) => fn1(fn2(...args))
@@ -48,3 +51,20 @@ const deepCopy = (obj, fn=identity) => {
 }
 
 const deepFreeze = obj => deepCopy(obj, Object.freeze)
+
+
+const trampoline = fn => {
+  return val => {
+    let result = fn(val)
+    while (typeof result === "function") {
+      result = result()
+    }
+    return result
+  }
+}
+
+const trampolineFactorial = trampoline(function factorial (n, runningTotal=1) {
+  runningTotal = runningTotal * n
+  if (n <= 1) return runningTotal
+  return () => factorial(n - 1, runningTotal)
+})
