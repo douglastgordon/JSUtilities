@@ -24,3 +24,7 @@ const compose = (...fns) => val => {
 const lazyCompose = (...fns) => fns.reduce((fn1, fn2) => {
   return (...args) => fn1(fn2(...args))
 })
+
+const reverseArgs = fn => (...args) => fn(...args.reverse())
+
+const pipe = reverseArgs(lazyCompose)
