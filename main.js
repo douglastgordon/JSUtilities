@@ -28,3 +28,8 @@ const lazyCompose = (...fns) => fns.reduce((fn1, fn2) => {
 const reverseArgs = fn => (...args) => fn(...args.reverse())
 
 const pipe = reverseArgs(lazyCompose)
+
+const memoize = fn => {
+  const cache = {}
+  return arg => cache[arg] ? cache[arg] : fn(arg)
+}
