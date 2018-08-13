@@ -31,5 +31,9 @@ const pipe = reverseArgs(lazyCompose)
 
 const memoize = fn => {
   const cache = {}
-  return arg => cache[arg] ? cache[arg] : fn(arg)
+  return arg => cache[arg] !== undefined ? cache[arg] : fn(arg)
+}
+
+const deepCopyArray = arr => {
+  return arr.map(el => Array.isArray(el) ? deepCopyArray(el) : el)
 }
