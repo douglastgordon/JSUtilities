@@ -68,3 +68,13 @@ const trampolineFactorial = trampoline(function factorial (n, runningTotal=1) {
   if (n <= 1) return runningTotal
   return () => factorial(n - 1, runningTotal)
 })
+
+const unique = arr => {
+  return Array.from(new Set(arr))
+}
+
+const flatten = arr => {
+  return arr.reduce((acc, el) => {
+    return acc.concat(Array.isArray(el) ? flatten(el) : el)
+  }, [])
+}
