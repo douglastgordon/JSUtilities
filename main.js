@@ -78,3 +78,12 @@ const flatten = arr => {
     return acc.concat(Array.isArray(el) ? flatten(el) : el)
   }, [])
 }
+
+const zip = (arr1, arr2) => {
+  const [longer, shorter] = [arr1, arr2].sort((a, b) => a.length < b.length)
+  return longer.reduce((acc, el, idx) => {
+    const shortListEl = shorter[idx]
+    const nextPair = shortListEl ? [el, shortListEl] : [el]
+    return [...acc, nextPair]
+  }, [])
+}
